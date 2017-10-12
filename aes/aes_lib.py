@@ -77,4 +77,12 @@ def replay(rep):
     leng = len(rep)
     if leng < 16:
         rep += alph[0:16-leng]
+    elif 16 < leng < 24:
+        leng -= 16
+        rep += alph[0:8-leng]
+    elif 24 < leng < 32:
+        leng -= 24
+        rep += alph[0:8-leng]
+    elif leng > 32:
+        rep = rep[0:32]
     return(rep)
