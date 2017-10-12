@@ -1,8 +1,5 @@
 from aes_lib import *
 
-
-#     3qEbD5~$zkp9Aye?#62grwaNuGnI|t*XBjMZm107{KdSq$BtRU%hy#2F
-#     .tar.gz.gpg
 while True:
     print("Введите 1 для ЗАШИФРОВКИ текста, Введите 2 для РАСШИФРОВКИ текста")
     if input() == '1':
