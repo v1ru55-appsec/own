@@ -43,12 +43,10 @@ class AesCode:# какая-то хрень которая работает на 
         if _ == 1:
             text = text[:is_again + 1] + chr(127) + text[is_again + 1:]
         k = 0
-        #чё за хуйня????
         for i in range(len(text)):
             if text[i-k] == chr(127) and text[i -1-k] == chr(127) and (i != 0 or k != 0):
                 text = text[:i - 1] + text[i:]
                 k = 1
-        #что тут происходит?!??!?!
         BS = 16
         text = text + ((BS - len(text) % BS) * (chr(BS - len(text) % BS)))
         IV = Random.new().read(AES.block_size)
