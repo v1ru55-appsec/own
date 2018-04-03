@@ -28,12 +28,12 @@ while True:
         continue
     elif command == 'get':
         s.send(UserName)
-        print('Сколько последних сообщений вы хотите прочитать ? Введите число :')
+        print('Сколько последних сообщений вы хотите прочитать? Введите число:')
         NumberOfMails = bytes(input(), encoding="utf-8")
         s.send(NumberOfMails)
         print('Получены сообщения для вас :')
         print(s.recv(1024).decode('utf-8'))
-        print('Для того , чтобы закрыть сообщения введите две звездочки (**) :')
+        print('Для того, чтобы закрыть сообщения введите две звездочки (**) :')
         if input() == '**':
             continue
     elif command == 'end':
