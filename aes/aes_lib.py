@@ -4,7 +4,7 @@ import base64
 import re
 
 
-class AesCode:# какая-то хрень которая работает на темной магии
+class AesCode:
 
     def __init__(self, key):
         self.key = key
