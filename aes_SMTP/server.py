@@ -5,9 +5,9 @@ HOST = ''
 PORT = 14900
 s = socket.socket()
 s.bind((HOST, PORT))
-s.listen(2)
-conn, addr = s.accept()
 while True:
+    s.listen(2)
+    conn, addr = s.accept()
     Nik = (conn.recv(1024).decode('utf-8'))
     Command = (conn.recv(1024).decode('utf-8'))
     if Command == 'send':
