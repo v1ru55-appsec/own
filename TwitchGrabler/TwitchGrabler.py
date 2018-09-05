@@ -7,7 +7,6 @@ import json
 
 class GUI(QtWidgets.QMainWindow, design.Ui_MainWindow):
     flag1 = False
-    flag2 = False
     flag3 = False
 
     def __init__(self):
@@ -38,20 +37,17 @@ class GUI(QtWidgets.QMainWindow, design.Ui_MainWindow):
         TwitchGrabler.video_id = self.url.rsplit('/', 1)[1]
         TwitchGrabler.info(TwitchGrabler, self.url)
         self.comboBox.addItems(TwitchGrabler.resolutions)
+        TwitchGrabler.resolution = TwitchGrabler.resolutions[0]
         self.comboBox.activated[str].connect(self.is_res_choose)
 
     def is_res_choose(self, text):
-        self.flag2 = True
         TwitchGrabler.resolution = text
 
     def download(self):
         if self.flag1:
-            if self.flag2:
-                self.tw = TwitchGrabler()
-                self.tw.pbar_signal.connect(self.pbar_change)
-                self.tw.start()
-            else:
-                QtWidgets.QMessageBox.about(self, "Внимание", "Выберите качество стрима!")
+            self.tw = TwitchGrabler()
+            self.tw.pbar_signal.connect(self.pbar_change)
+            self.tw.start()
         else:
             QtWidgets.QMessageBox.about(self, "Внимание", "Выберите место сохранения стрима!")
 
@@ -60,17 +56,13 @@ class GUI(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def stop(self):
         if self.flag1:
-            if self.flag2:
-                QtWidgets.QMessageBox.about(self, "Внимание", "Загрузка останавливается...")
-                GUI.flag3 = True
-            else:
-                QtWidgets.QMessageBox.about(self, "Внимание", "Выберите качество стрима!")
+            QtWidgets.QMessageBox.about(self, "Внимание", "Загрузка останавливается...")
+            GUI.flag3 = True
         else:
             QtWidgets.QMessageBox.about(self, "Внимание", "Выберите место сохранения стрима!")
 
     def default(self):
         self.flag3 = False
-        self.flag2 = False
         self.flag1 = False
         self.lineEdit_2.setText("Выберете место сохранения")
         self.comboBox.clear()
@@ -131,7 +123,6 @@ class TwitchGrabler(QtCore.QThread):
     def run(self):
         self.download()
         GUI.flag3 = False
-        GUI.flag2 = False
         GUI.flag1 = False
 
     def download(self):
@@ -162,7 +153,6 @@ class TwitchGrabler(QtCore.QThread):
             video_link = video_link[:video_link.rindex('chunked')] + self.resolution + '/'
 
             # скачивание стрима
-            tmp = 0
             l = len(pieces) - 1
             f = open(self.filename + '.ts', mode='wb')
             for i in range(l):
